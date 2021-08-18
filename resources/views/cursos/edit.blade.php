@@ -1,53 +1,52 @@
 @extends('layouts.plantilla')
 
-@section('title','cursos create')
+@section('title','cursos cedit')
     
 @section('content')
-    <h1>En esta pagina podras crear un curso</h1>  
+    <h1>En esta pagina podras editar un curso</h1>  
     
-    <form action="{{route('cursos.store')}}" method="POST">
+    <form action="{{route('cursos.update',$curso)}}" method="post">
         <!--Se ecncarga de agregar un token-->
         @csrf
+        @method('put')
         <label for="">
             Nombre:
             <br>
-            <input type="text" name="name" value="{{old('name')}}">
+            <input type="text" name="name" value="{{old('name',$curso->name)}}">
         </label>
 
+        <br>
         @error('name')
-            <br>
-            <small>*{{$message}}</small>
-            <br>
+            <small>*{{$message }}</small>
         @enderror
-
         <br>
         <label for="">
             Descripcion:
             <br>
-            <textarea name="descripcion" id="" cols="30" rows="5" value="{{old('descripcion')}}"></textarea>
+            <textarea name="descripcion" id="" cols="30" rows="5" >{{old('descripcion',$curso->descripcion)}}
+            </textarea>
         </label>
+
         
+        <br>
         @error('descripcion')
-            <br>
             <small>*{{$message}}</small>
-            <br>
         @enderror
 
         <br>
         <label for="">
             Categoria:
             <br>
-            <input type="text" name="categoria" value="{{old('categoria')}}">
+            <input type="text" name="categoria" value="{{old('categoria',$curso->categoria)}}">
         </label>
 
-        @error('categoria')
-            <br>
-            <small>*{{$message}}</small>
-            <br>
-        @enderror
-
+        
         <br>
-        <button type="submit"> Envirar formulario</button>
+        @error('categoria')
+            <small>*{{$message}}</small>
+        @enderror
+        <br>
+        <button type="submit"> Actualizar formulario</button>
     </form>
 @endsection
     
